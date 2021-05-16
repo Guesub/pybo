@@ -26,7 +26,7 @@ SECRET_KEY = '(arc*4=$xr+73mg$f7+jzj2vk9v^pg78+@=ve1mme-va6b2_i&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.125.185.206']
 
 
 # Application definition
