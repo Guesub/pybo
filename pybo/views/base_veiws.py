@@ -6,6 +6,7 @@ from django.db.models import Q, Count
 from ..models import Answer, Question
 
 def Index(request): # request는 사용자가 전달한 데이터를 확인 할 때 사용 된다.
+    3/0
     """
     pybo 목록 출력
     """
