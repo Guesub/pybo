@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import handler404
 from django.contrib import admin
 from django.urls import path, include
-from pybo.views import base_veiws
+from pybo.views import base_views
 
 urlpatterns = [
-    path('', base_veiws.Index, name='index'),
+    path('', base_views.Index, name='index'),
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')),
     path('common/', include('common.urls')),

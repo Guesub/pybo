@@ -1,15 +1,15 @@
 from collections import namedtuple
 from django.urls import path
 
-from .views import base_veiws, question_views, answer_views, comment_views, vote_views
+from .views import base_views, question_views, answer_views, comment_views, vote_views
 
 app_name='pybo'
 urlpatterns =[
     # name attribute는 별칭으로, 별칭을 사용함에 따라, html에 url 호출 시 하드코딩을 피함. 추후 URL 변경시 유지보수 용이
     
     #base_views.py
-    path('', base_veiws.Index, name='index'),
-    path('<int:question_id>/', base_veiws.DetailView, name='detail'), 
+    path('', base_views.Index, name='index'),
+    path('<int:question_id>/', base_views.DetailView, name='detail'), 
     
     #question_views
     path('question/create/', question_views.question_create, name='question_create'),
