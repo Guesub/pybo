@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger('pybo')
 
 def Index(request): # request는 사용자가 전달한 데이터를 확인 할 때 사용 된다.
-    3/0
+
     logger.info("시작해보자")
     """
     pybo 목록 출력
