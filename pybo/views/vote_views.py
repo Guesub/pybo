@@ -13,18 +13,24 @@ def vote_question(request, question_id):
     if request.user == question.author:
         messages.error(request, '본인이 작성한 글은 추천할 수 없습니다.')
     else:
-        question.voter.add(request.user)
+        if list(filter(lambda a : a==request.user, question.voter.all())):
+            messages.error(request, '추천은 한번만 할 수 있습니다.')
+        else:
+            question.voter.add(request.user)
     return redirect('pybo:detail', question_id=question.id)
 
 
 @login_required(login_url='common:login')
 def vote_answer(request, answer_id):
     """
-    pybo 질문 추천 등록
+    pybo 답변 추천 등록
     """
     answer = get_object_or_404(Answer, pk=answer_id)
     if request.user == answer.author:
         messages.error(request, '본인이 작성한 글은 추천할 수 없습니다.')
     else:
-        answer.voter.add(request.user)
+        if list(filter(lambda a : a==request.user, answer.voter.all())):
+            messages.error(request, '추천은 한번만 할 수 있습니다.')
+        else:
+            answer.voter.add(request.user)
     return redirect('pybo:detail', question_id=answer.question.id)

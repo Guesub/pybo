@@ -50,8 +50,10 @@ def DetailView(request, question_id):
     page = request.GET.get('page', '1') # 페이지
 
     question=Question.objects.get(id=question_id)
-    
-    answer_list = question.answer_set.all()
+        
+    answer_list = question.answer_set.all() \
+        .annotate(num_voter=Count('voter')) \
+        .order_by('-num_voter', '-create_date')
 
     paginator=Paginator(answer_list, 10)
     page_obj=paginator.get_page(page)
