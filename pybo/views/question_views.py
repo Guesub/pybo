@@ -4,26 +4,30 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from ..forms import QuestionForm
-from ..models import Question
+from ..models import Category, Question
 
 @login_required(login_url='common:login')
 def question_create(request):
     """
     pybo 질문등록
     """
+    category_list = Category.objects.all()
+    categoryName=request.POST.get('dropbox',None)
+
     if request.method == 'POST': # POST 는 데이터 저장을 처리 후 index로 redirection
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
             question.author=request.user
             question.create_date = timezone.now()
+            question.category=categoryName # defalut가 문의글로 되어 있기 때문에 Post에서 받은 값을 저장
             question.save()
             return redirect('pybo:index')
     else: # GET 방식으로  from에 QustionFrom을 담아서 입력 받는 페이지로 Return
         form=QuestionForm()
     
-    context={'form':form}
-    return render(request, 'pybo/question_form.html', {'form':form})
+    context={'form':form, 'category_list':category_list}
+    return render(request, 'pybo/question_form.html', context)
 
 @login_required(login_url='common:login')
 def question_modify(request, question_id):
