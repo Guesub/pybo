@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="profile-list" role="tablist">
+                <li class="nav-item"><a class="nav-link active" href="#userdetail" data-toggle="tab"><i class="fas fa-id-card"> 사용자 정보</i></a></li>
+                <li class="nav-item"><a class="nav-link" href="#pwchange" data-toggle="tab"><i class="fas fa-lock"> 비밀번호 변경</i></a></li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div id="userdetail" class="tab-pane fade show active">
+                    <h5><i class="fas fa-portrait"> 사용자명 (ID)</i></h5><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 30px; margin-top: 10px;" value="{{user.username}}" disabled>
+                    <h5 style="margin-top: 0;"><i class="fas fa-envelope"> 이메일(E-Mail)</i></h5><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 30px; margin-top: 10px;" value="{{user.email}}" disabled>
+                </div>
+                <div id="pwchange" class="tab-pane fade">
+                    <div class="form-group" method="post">
+                        <h6 style="margin-top: 10;"><i class="fas fa-lock"> 기존 비밀번호</i></h6><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
+                        <h6 style="margin-top: 10;"><i class="fas fa-lock"> 새 비밀번호</i></h6><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
+                        <h6 style="margin-top: 10;"><i class="fas fa-lock"> 새 비밀번호 (확인)</i><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;"><button class="btn btn-primary" type="summit"><i class="fa fa-save"></i>&nbsp;저장하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
