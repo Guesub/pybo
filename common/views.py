@@ -1,5 +1,5 @@
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, get_user_model, login
+from django.shortcuts import render, redirect, get_object_or_404
 from common.forms import UserForm
 
 # Create your views here.
@@ -20,6 +20,17 @@ def signup(request):
     else:
         form=UserForm()
     return render(request, 'common/signup.html',{'form':form})
+
+# 사용자 프로필 보기
+def userprofile(request, pk):
+    User=get_user_model()
+    user=get_object_or_404(User, pk=pk)
+
+    context = {
+        'user' : user
+    }
+
+    return render(request, 'common/userprofile.html', context)
 
 def page_not_found(request, exception):
     """

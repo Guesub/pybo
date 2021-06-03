@@ -1,35 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container my-3">
-    <div class="row my-3">
-        <div class="col-4">
-            <h4>회원가입</h4>
-        </div>
-        <div class="col-8 text-right">
-            <span>또는 <a href="{% url 'common:login' %}">로그인 하세요</a></span>
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark"
+    style="min-height: 100vh; background-size: cover; background-image: url(https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1920&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjMyMDc0fQ&amp;s=c0d43804e2c7c93143fe8ff65398c8e9);">
+    <div class="container-fluid">
+        <div class="row  justify-content-center align-items-center d-flex-row text-center h-100">
+            <div class="col-12 col-md-4 col-lg-3   h-50 ">
+                <div class="card shadow">
+                    <div class="card-body mx-auto">
+                        <h4 class="card-title mt-3 text-center">회원 가입</h4>
+                        <p class="text-center">소셜미디어로 로그인</p>
+                        <p>
+                            <a href="" class="btn btn-block btn-dark">
+                                <i class="fab fa-google mr-2"></i>Login via google</a>
+                        </p>
+                        <p class="text-muted font-weight-bold ">
+                            <span>혹은</span>
+                        </p>
+                        <form method="post" class="post-form">
+                            {% csrf_token %}
+                            {% include "form_errors.html" %}
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input type="text" class="form-control" name="username" placeholder="사용자 이름" id="username" value="{{ form.username.value|default_if_none:'' }}">
+                            </div>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                </div>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email 주소" value="{{ form.email.value|default_if_none:'' }}">
+                            </div>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input type="password" class="form-control" name="password1" id="password1" placeholder="비밀번호" value="{{ form.password1.value|default_if_none:'' }}">
+                            </div>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="비밀번호 확인" value="{{ form.password2.value|default_if_none:'' }}">    
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">생성하기</button>
+                            </div>
+                            <p class="text-center">이미 계정을 가지고 있으신가요?
+                                <a href="{% url 'common:login' %}">Log In</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <form method="post" class="post-form">
-        {% csrf_token %}
-        {% include "form_errors.html" %}
-        <div class="form-group">
-            <label for="username">사용자 이름</label>
-            <input type="text" class="form-control" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}">            
-        </div>
-        <div class="form-group">
-            <label for="password1">비밀번호</label>
-            <input type="password" class="form-control" name="password1" id="password1" value="{{ form.password1.value|default_if_none:'' }}">            
-        </div>
-        <div class="form-group">
-            <label for="password2">비밀번호</label>
-            <input type="password" class="form-control" name="password2" id="password2" value="{{ form.password2.value|default_if_none:'' }}">            
-        </div>
-        <div class="form-group">
-            <label for="email">이메일</label>
-            <input type="text" class="form-control" name="email" id="email" value="{{ form.email.value|default_if_none:'' }}">            
-        </div>
-        <button type="submit" class="btn btn-primary">생성하기</button>
-    </form>
-</div>
+</section>
 
 {% endblock %}
