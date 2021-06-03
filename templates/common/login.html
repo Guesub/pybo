@@ -7,6 +7,14 @@
             <div class="col-12 col-md-4 col-lg-3   h-50 ">
                 <div class="card shadow">
                     <div class="card-body mx-auto">
+                        {% if messages %}
+                        <div class="alert alert-danger my-3" role="alert">
+                            {% for message in messages %}
+                            <strong>{{message.tag}}</strong>
+                            <ul><li>{{message.message}}</li></ul>
+                            {% endfor %}
+                        </div>
+                        {%endif%}
                         <h4 class="card-title mt-3 text-center">로그인</h4>
                         <form method="POST" class="post-form" action="{% url 'common:login' %}">
                             {% csrf_token %}

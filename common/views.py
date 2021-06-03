@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model, login
 from django.shortcuts import render, redirect, get_object_or_404
 from common.forms import UserForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -23,8 +24,14 @@ def signup(request):
 
 # 사용자 프로필 보기
 def userprofile(request, pk):
+
     User=get_user_model()
     user=get_object_or_404(User, pk=pk)
+
+
+    if request.user.username != user.username:
+        messages.error(request, '조회 권한이 없습니다.')
+        return redirect('common:login')
 
     context = {
         'user' : user
