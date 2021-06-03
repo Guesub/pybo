@@ -23,21 +23,9 @@ def signup(request):
     return render(request, 'common/signup.html',{'form':form})
 
 # 사용자 프로필 보기
-def userprofile(request, pk):
+def userprofile(request):
 
-    User=get_user_model()
-    user=get_object_or_404(User, pk=pk)
-
-
-    if request.user.username != user.username:
-        messages.error(request, '조회 권한이 없습니다.')
-        return redirect('common:login')
-
-    context = {
-        'user' : user
-    }
-
-    return render(request, 'common/userprofile.html', context)
+    return render(request, 'common/userprofile.html', None)
 
 def page_not_found(request, exception):
     """
