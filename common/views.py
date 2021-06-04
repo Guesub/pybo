@@ -46,11 +46,11 @@ def changePW(request):
                 return redirect('index')
             else:
                 messages.error(request, "새로운 비밀번호 입력 값이 일치하지 않습니다.")
-                return render(request, 'common/userprofile.html', None)
+                return render(request, 'common/userprofile.html', {'PWerror' : 'PWerror'})
 
         else:
             messages.error(request, "현재 비밀번호가 일치하지 않습니다.")
-            return render(request, 'common/userprofile.html', None)
+            return render(request, 'common/userprofile.html', {'PWerror' : 'PWerror'})
 
 
 def page_not_found(request, exception):
