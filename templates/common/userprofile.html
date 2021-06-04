@@ -22,10 +22,21 @@
                                         <h5 style="margin-top: 0;"><i class="fas fa-envelope"> 이메일(E-Mail)</i></h5><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 30px; margin-top: 10px;" value="{{user.email}}" disabled>
                                     </div>
                                     <div id="pwchange" class="tab-pane fade">
-                                        <div class="form-group" method="post">
-                                            <h6 style="margin-top: 10;"><i class="fas fa-lock"> 기존 비밀번호</i></h6><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
-                                            <h6 style="margin-top: 10;"><i class="fas fa-lock"> 새 비밀번호</i></h6><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
-                                            <h6 style="margin-top: 10;"><i class="fas fa-lock"> 새 비밀번호 (확인)</i><input type="text" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;"><button class="btn btn-primary" type="summit"><i class="fa fa-save"></i>&nbsp;저장하기</button>
+                                        {% if messages %}
+                                        <div class="alert alert-danger my-3" role="alert">
+                                            {% for message in messages %}
+                                            <strong>{{message.tag}}</strong>
+                                            <ul><li>{{message.message}}</li></ul>
+                                            {% endfor %}
+                                        </div>
+                                        {%endif%}
+                                        <form method="post" class="form-group" action="{% url 'common:changePW' %}">
+                                            {% csrf_token %}
+                                            {% include "form_errors.html" %}
+                                            <h6 style="margin-top: 10;"><i class="fas fa-lock"> 기존 비밀번호</i></h6><input type="password" id="password" name="password" class="form-control" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
+                                            <h6 style="margin-top: 10;"><i class="fas fa-lock"> 새 비밀번호</i></h6><input type="password" id="password1" name="password1" class="form-control" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
+                                            <h6 style="margin-top: 10;"><i class="fas fa-lock"> 새 비밀번호 (확인)</i><input type="password" id="password2" name="password2" class="form-control" style="transform: scale(1);width: 100%;height: 30px;margin-bottom: 20px; margin-top: 5px;">
+                                            <button class="btn btn-primary" type="summit"><i class="fa fa-save"></i>&nbsp;저장하기</button>
                                         </div>
                                     </div>
                                 </div>

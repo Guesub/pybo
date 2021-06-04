@@ -3,6 +3,14 @@
 
 {% block content %}
 <div class="container my-3">
+    {% if messages %}
+    <div class="alert alert-info my-3" role="alert">
+        {% for message in messages %}
+        <strong>{{message.tag}}</strong>
+        <ul><li>{{message.message}}</li></ul>
+        {% endfor %}
+    </div>
+    {%endif%}
     <div class="row justify-between-end my-3">
         <div class="col-2">
             <select class="form-control so">
