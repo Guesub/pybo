@@ -21,6 +21,10 @@ def question_create(request):
             question.author=request.user
             question.create_date = timezone.now()
             question.category=categoryName # defalut가 문의글로 되어 있기 때문에 Post에서 받은 값을 저장
+            if len(question.content) > 100:
+                question.content_summary = question.content[:99]
+            else:
+                question.content_summary = question.content
             question.save()
             return redirect('pybo:index')
     else: # GET 방식으로  from에 QustionFrom을 담아서 입력 받는 페이지로 Return

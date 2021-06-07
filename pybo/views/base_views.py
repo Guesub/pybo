@@ -36,7 +36,7 @@ def Index(request): # request는 사용자가 전달한 데이터를 확인 할 
             # filter 함수에서 모델 필드에 접근하려면 __ 를 이용하면 된다.
         ).distinct() # 중복 제거
 
-    paginator=Paginator(question_list, 10)
+    paginator=Paginator(question_list, 5)
     page_obj=paginator.get_page(page)
 
     context={'question_list':page_obj, 'page':page, 'kw':kw, 'so':so}
@@ -50,6 +50,8 @@ def DetailView(request, question_id):
     page = request.GET.get('page', '1') # 페이지
 
     question=Question.objects.get(id=question_id)
+    question.viewCount = question.viewCount + 1
+    question.save()
         
     answer_list = question.answer_set.all() \
         .annotate(num_voter=Count('voter')) \

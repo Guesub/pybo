@@ -2,116 +2,147 @@
 {% load pybo_filter %}
 
 {% block content %}
-<div class="container my-3">
-    {% if messages %}
-    <div class="alert alert-info my-3" role="alert">
-        {% for message in messages %}
-        <strong>{{message.tag}}</strong>
-        <ul><li>{{message.message}}</li></ul>
-        {% endfor %}
-    </div>
-    {%endif%}
-    <div class="row justify-between-end my-3">
-        <div class="col-2">
-            <select class="form-control so">
-                <option value="recent" {% if so == 'recent' %} selected {% endif %}>최신순</option>
-                <option value="recommend" {% if so == 'recommend' %} selected {% endif %}>추천순</option>
-                <option value="popular" {% if so == 'popular' %} selected {% endif %}>인기순</option>
-            </select>
-        </div>
-        <div class="col-4 input-group">
-            <input type="text" class="form-control kw" value="{{kw|default_if_none:''}}">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="btn_search"><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-    </div>
-    <table class="table">
-        <thead>
-            <tr class="text-center thead-dark">
-                <th>번호</th>
-                <th>추천</th>
-                <th style="width:50%">제목</th>
-                <th>글쓴이</th>
-                <th>작성일시</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if question_list %}
-            {% for question in question_list %}
-            <tr class="text-center">
-                <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
-                <td>
-                    {% if question.voter.all.count > 0 %}
-                    <span class="badge badge-warning px-2 py-1">{{ question.voter.all.count }}</span>
+{% load static%}
+<link rel="stylesheet" type="text/css" href="{% static 'custom.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row  justify-content-center align-items-center d-flex-row h-100">           
+            <div class="container my-4">
+                {% if messages %}
+                <div class="alert alert-info my-3" role="alert">
+                    {% for message in messages %}
+                    <strong>{{message.tag}}</strong>
+                    <ul><li>{{message.message}}</li></ul>
+                    {% endfor %}
+                </div>
+                {%endif%}
+                <div class="row justify-between-end my-3">
+                    <div class="col-2">
+                        <select class="form-control so">
+                            <option value="recent" {% if so == 'recent' %} selected {% endif %}>최신순</option>
+                            <option value="recommend" {% if so == 'recommend' %} selected {% endif %}>추천순</option>
+                            <option value="popular" {% if so == 'popular' %} selected {% endif %}>인기순</option>
+                        </select>
+                    </div>
+                    <div class="col-4 input-group">
+                        <input type="text" class="form-control kw" value="{{kw|default_if_none:''}}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-dark" type="button" id="btn_search"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div >
+                {% if question_list %}
+                {% for question in question_list %}
+                <div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <!-- POST -->
+                            <div class="post">
+                                <div class="wrap-ut float-left">
+                                    <div class="userinfo float-left">
+                                        <div class="avatar">
+                                            <img src="{% static 'images/avatar.png' %}" alt="" />
+                                        </div>
+                                        <div class="username" style="text-align: center;">{{question.author.username}}</div>
+                                    </div>
+                                    <div class="posttext float-left">
+                                        <h2><a href="{% url 'pybo:detail' question.id %}">{{question.subject}}</a></h2>
+                                        <p>
+                                            {{question.content_summary}}
+                                        </p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="createDate" style="margin-left:96px; margin-bottom: 10px;"><i class="fas fa-stopwatch"> {{ question.create_date }}</i></div>
+                                </div>
+                                <div class="postinfo float-left">
+                                    <div class="comments">
+                                        <div class="commentbg">
+                                            {% if question.answer_set.count > 0 %}
+                                                {{ question.answer_set.count }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                            <div class="mark"></div>
+                                        </div>
+                                    </div>
+                                    <div class="like">
+                                        <i class="far fa-thumbs-up">
+                                            {% if question.voter.all.count > 0 %}
+                                            {{ question.voter.all.count }}
+                                            {% else %}
+                                            0
+                                            {% endif %}
+                                        </i>
+                                    </div>
+                                    <div class="viewCNT">
+                                        <i class="fas fa-eye">
+                                            {{ question.viewCount }}
+                                        </i>
+                                    </div>                                    
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="container">
+                    <h5>질문이 없습니다.</h5>
+                </div>
+                {% endif %}
+                <!--페이징 처리 시작-->
+                <ul class="pagination justify-content-center">
+                    <!--이전페이지-->
+                    {% if question_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" data-page="{{ question_list.previous_page_number }}" href="#"><i class="fas fa-chevron-left"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="fas fa-chevron-left"></i></a>
+                    </li>
                     {% endif %}
-                </td>
-                <td class="text-left">
-                    <a href="{% url 'pybo:detail' question.id %}">
-                        {{question.subject}}
-                        {% if question.answer_set.count > 0 %}
-                        <span class="text-danger small ml-2">
-                            {{ question.answer_set.count }}
-                        </span>
+                    <!--페이지 리스트-->
+                    {% for page_number in question_list.paginator.page_range %}
+                    {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+                        {% if page_number == question_list.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" data-page="{{page_number}}" href="#">{{page_number}}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" data-page="{{page_number}}" href="#">{{page_number}}</a>
+                        </li>
                         {% endif %}
-                    </a>
-                </td>
-                <td>{{question.author.username}}</td>
-                <td>{{ question.create_date }}</td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="3">질문이 없습니다.</td>
-            </tr>
-            {% endif %}
-        </tbody>
-    </table>
-    <!--페이징 처리 시작-->
-    <ul class="pagination justify-content-center">
-        <!--이전페이지-->
-        {% if question_list.has_previous %}
-        <li class="page-item">
-            <a class="page-link" data-page="{{ question_list.previous_page_number }}" href="#">이전</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-        </li>
-        {% endif %}
-        <!--페이지 리스트-->
-        {% for page_number in question_list.paginator.page_range %}
-        {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
-            {% if page_number == question_list.number %}
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" data-page="{{page_number}}" href="#">{{page_number}}</a>
-            </li>
-            {% else %}
-            <li class="page-item">
-                <a class="page-link" data-page="{{page_number}}" href="#">{{page_number}}</a>
-            </li>
-            {% endif %}
-        {% endif %}
-        {% endfor %}
-        <!--다음페이지-->
-        {% if question_list.has_next %}
-        <li class="page-item">
-            <a class="page-link" data-page="{{question_list.next_page_number}}" href="#">다음</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
-        </li>
-        {% endif %}
-    </ul>
-    <!--페이징 처리 종료-->
-    <a href="{% url 'pybo:question_create'%}" class="btn btn-primary"><i class="fas fa-question-circle"> 질문 등록하기</i></a>
-</div>
-<form id="searchForm" method="GET" action="{% url 'index' %}">
-    <input type="hidden" id="kw" name="kw" value="{{kw|default_if_none:''}}">
-    <input type="hidden" id="page" name="page" value="{{page}}">
-    <input type="hidden" id="so" name="so" value="{{ so }}">
-</form>
+                    {% endif %}
+                    {% endfor %}
+                    <!--다음페이지-->
+                    {% if question_list.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" data-page="{{question_list.next_page_number}}" href="#"><i class="fas fa-chevron-right"></i></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="fas fa-chevron-right"></i></a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <!--페이징 처리 종료-->
+                <a href="{% url 'pybo:question_create'%}" class="btn btn-primary"><i class="fas fa-question-circle"> 질문 등록하기</i></a> 
+                </div>
+            </div>
+            <form id="searchForm" method="GET" action="{% url 'index' %}">
+                <input type="hidden" id="kw" name="kw" value="{{kw|default_if_none:''}}">
+                <input type="hidden" id="page" name="page" value="{{page}}">
+                <input type="hidden" id="so" name="so" value="{{ so }}">
+            </form>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 
