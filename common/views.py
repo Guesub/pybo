@@ -120,6 +120,8 @@ def kakaoOauth(request):
         nickname = profile.get("nickname", None)
         avatar_url = profile.get("profile_image_url", None)
         emailinfo = kakao_account.get("email", None)
+        if emailinfo is None:
+            emailinfo = nickname
 
         user = CustomUser.objects.get_or_none(email=emailinfo)
         
