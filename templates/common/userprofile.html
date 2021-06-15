@@ -12,7 +12,9 @@
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs" id="profile-list" role="tablist">
                                     <li class="nav-item"><a class="nav-link {%if not PWerror%}active{%endif%}" href="#userdetail" data-toggle="tab"><i class="fas fa-id-card"> 사용자 정보</i></a></li>
+                                    {% if user.login_method != 'kakao' %}
                                     <li class="nav-item"><a class="nav-link {%if PWerror%}active{%endif%}" href="#pwchange" data-toggle="tab"><i class="fas fa-lock"> 비밀번호 변경</i></a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                             <div class="card-body">

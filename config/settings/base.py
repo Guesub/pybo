@@ -151,6 +151,9 @@ LOGOUT_REDIRECT_URL='/'
 SESSION_COOKIE_AGE = 60 * 30
 SESSION_SAVE_EVERY_REQUEST = True
 
+AUTH_USER_MODEL='common.CustomUser'
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
 #로깅 설정
 LOGGING={
     'version' : 1,

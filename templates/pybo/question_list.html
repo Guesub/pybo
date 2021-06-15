@@ -44,9 +44,18 @@
                                 <div class="wrap-ut float-left">
                                     <div class="userinfo float-left">
                                         <div class="avatar">
+                                            {% if question.avatar is not null%}
+                                            <img style="
+                                            border: 1px solid gold;
+                                            border-radius: 70px;
+                                            -moz-border-radius: 70px;
+                                            -khtml-border-radius: 70px;
+                                            -webkit-border-radius: 70px;
+                                            " width="60px" height="60px" src={{question.avatar}} alt="" />
+                                            {% else %}
                                             <img src="{% static 'images/avatar.png' %}" alt="" />
+                                            {% endif %}
                                         </div>
-                                        <div class="username" style="text-align: center;">{{question.author.username}}</div>
                                     </div>
                                     <div class="posttext float-left">
                                         <h2><a href="{% url 'pybo:detail' question.id %}">{{question.subject}}</a></h2>
@@ -55,6 +64,7 @@
                                         </p>
                                     </div>
                                     <div class="clearfix"></div>
+                                    <div class="username" style="margin-left:96px; margin-bottom: 10px;">작성자 : {{question.author.username}}</div>
                                     <div class="createDate" style="margin-left:96px; margin-bottom: 10px;"><i class="fas fa-stopwatch"> {{ question.create_date }}</i></div>
                                 </div>
                                 <div class="postinfo float-left">

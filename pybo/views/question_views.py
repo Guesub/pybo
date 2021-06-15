@@ -21,6 +21,7 @@ def question_create(request):
             question.author=request.user
             question.create_date = timezone.now()
             question.category=categoryName # defalut가 문의글로 되어 있기 때문에 Post에서 받은 값을 저장
+            question.avatar = request.user.avatar
             if len(question.content) > 100:
                 question.content_summary = question.content[:99]
             else:

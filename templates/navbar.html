@@ -1,23 +1,36 @@
 <!--네비게이션바-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav class="navbar navbar-light navbar-expand-md navigation-clean" style="height: 70px;">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'pybo:index' %}"><i class="fab fa-python"> Qsub's Space</i></a>
+    <a class="navbar-brand" href="{% url 'pybo:index' %}"><h3><i class="fab fa-python"> Qsub's Space</i></h3></a>
     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav" style="margin: 0px;">
         <li class="nav-item">
           {% if user.is_authenticated %}
-          <a class="nav-link" href="{% url 'common:userprofile'%}"><i class="fas fa-user-alt"> {{ user.username }}</i></a>
+            {%if user.avatar is not null %}
+            <a class="nav-link" href="{% url 'common:userprofile'%}">
+            <img style="
+            border: 1px solid gold;
+            border-radius: 70px;
+            -moz-border-radius: 70px;
+            -khtml-border-radius: 70px;
+            -webkit-border-radius: 70px;
+            " width="35px" height="35px" src={{user.avatar}}>
+            {% else %}
+            <a class="nav-link" href="{% url 'common:userprofile'%}" style="margin: 6px;">
+            <i class="fas fa-user-alt">
+              {% endif %}
+              {{ user.username }}</i></a>
           {% else %}
             <a class="nav-link" href="{% url 'common:signup' %}"><i class="fas fa-user-plus"> 회원가입</i></a>
           {% endif %}
         </li>
         <li class="nav-item">
           {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'common:logout' %}"><i class="fas fa-sign-out-alt"> 로그아웃</i></a>
+            <a class="nav-link" href="{% url 'common:logoutPre' %}" style="margin: 6px;"><i class="fas fa-sign-out-alt"> 로그아웃</i></a>
           {% else %}
             <a class="nav-link" href="{% url 'common:login' %}"><i class="fas fa-sign-in-alt"> 로그인</i></a>
           {% endif %}

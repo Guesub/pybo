@@ -12,5 +12,7 @@ urlpatterns=[
     path('singup/', views.signup, name="signup"),
     path('userprofile/', views.userprofile, name="userprofile"),
     path('changePW/', views.changePW, name="changePW"),
-
+    path('kakaoLogin/', views.kakaoLogin, name="kakaoLogin"),
+    path('kakaoOauth/', views.kakaoOauth, name="kakaoOauth"),
+    path('logoutPre/', views.logoutPre, name='logoutPre')
 ]
