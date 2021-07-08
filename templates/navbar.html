@@ -6,6 +6,18 @@
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          생활정보
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'pybo:apttradeinfo'%}">부동산 실거래가</a>
+          <a class="dropdown-item" href="#">코로나 현황</a>
+          <a class="dropdown-item" href="#">미세먼지</a>
+        </div>
+      </li>
+    </ul>
     <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
       <ul class="navbar-nav" style="margin: 0px;">
         <li class="nav-item">

@@ -47,4 +47,10 @@ class Comment(models.Model):
     answer = models.ForeignKey(Answer, null=True, blank=True, on_delete=models.CASCADE)
 
 
+class Citycode(models.Model):
+    code=models.IntegerField(max_length=10)
+    city=models.TextField()
+    use=models.TextField()
 
+    def __str__(self):
+        return str(self.code)

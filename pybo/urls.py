@@ -1,7 +1,7 @@
 from collections import namedtuple
 from django.urls import path
 
-from .views import base_views, question_views, answer_views, comment_views, vote_views
+from .views import base_views, question_views, answer_views, comment_views, vote_views, apttradeinfo_views
 
 app_name='pybo'
 urlpatterns =[
@@ -32,4 +32,7 @@ urlpatterns =[
     #vote_views
     path('vote/question/<int:question_id>/', vote_views.vote_question, name="vote_question"),
     path('vote/answer/<int:answer_id>/', vote_views.vote_answer, name="vote_answer"),
+
+    #아파트 실거래가 조회
+    path('life/apttradeinfo/', apttradeinfo_views.apttradeinfo, name="apttradeinfo"),
 ]
