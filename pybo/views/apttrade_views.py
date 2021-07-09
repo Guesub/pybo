@@ -8,6 +8,10 @@ from urllib.request import urlopen, Request
 from urllib import parse
 import requests
 
+@login_required(login_url='common:login')
+def apttrade(request):
+    return render(request, 'pybo/apttrade.html', None)
+
 
 @login_required(login_url='common:login')
 def apttradeinfo(request):

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <form action="#" method="POST" class="my-3">
+        <label for="month">조회 연/월</label>
+        <input type="month" id="month" class="form-control input-lg" style="width: 200px;" />
+
+    </form>
+    
+
+    
+</div>
+<script text="text/javascript">
+    var today = new Date();
+    month = (today.getMonth()+1).toString().padStart(2,'0');
+    maxdate = today.getFullYear()+'-'+month;
+    document.getElementById("month").max = maxdate;
+    document.getElementById("month").value = maxdate;
+</script>
+
+
+"
+
+<!-- GIJGO date picker 사용시
+    <input id="datepicker" width="276" />
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4',
+            iconsLibrary: 'fontawesome',
+            format: 'mm yyyy',
+            footer : true,
+            header: true,
+            modal:true
+        });
+    </script>-->
+
+{%endblock%}

@@ -48,9 +48,9 @@ class Comment(models.Model):
 
 
 class Citycode(models.Model):
-    code=models.IntegerField(max_length=10)
+    code=models.IntegerField()
+    provins= models.TextField()
     city=models.TextField()
-    use=models.TextField()
 
     def __str__(self):
         return str(self.code)
